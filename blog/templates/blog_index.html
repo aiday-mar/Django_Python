@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block page_content %}
+<div class="col-md-8 offset-md-2">
+    <h1>Blog Index</h1>
+    <hr>
+    <!-- looks like this is a for loop that can be used to find the whole list of posts -->
+    {% for post in posts %}
+    <!-- here we are posting to the url with the pk value of the post selected 
+    in order to be able to view the whole details of the post -->
+    <h2><a href="{% url 'blog_detail' post.pk%}">{{ post.title }}</a></h2>
+    <small>
+        {{ post.created_on.date }} |&nbsp;
+        Categories:&nbsp;
+        {% for category in post.categories.all %}
+        <a href="{% url 'blog_category' category.name %}">
+            {{ category.name }}
+        </a>&nbsp;
+        {% endfor %}
+    </small>
+    <!-- here we cut off the body of the post to 400 characters meaning that beyond that we do
+    not display more data -->
+    <p>{{ post.body | slice:":400" }}...</p>
+    {% endfor %}
+</div>
+{% endblock %}
