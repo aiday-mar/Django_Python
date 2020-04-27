@@ -19,4 +19,7 @@ from django.urls import include, path
 urlpatterns = [
     path('', include('djangoApp.urls')),
     path('admin/', admin.site.urls),
+    # here we are linking our whole project to this other app which is different
+    # from the projects app
+    path("blog/", include("blog.urls")),
 ]
